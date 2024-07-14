@@ -75,7 +75,7 @@ Put downloaded data into the following directory structure:
 - Change the config file depending on what you want.
 
 ```
-# Example: training LAGCN on NTU RGB+D 120 cross subject with GPU 0
+# Example: training MSGCN on NTU RGB+D 120 cross subject with GPU 0
 python main.py --config configs/ntu120-xsub/joint.yaml --work-dir work_dir/ntu120/csub/lagcn_joint --device 0
 ```
 
