@@ -82,18 +82,6 @@ python main.py --config configs/ntu120-xsub/joint.yaml --work-dir work_dir/ntu12
 - To train your own model, put model file `your_model.py` under `./model` and run:
 
 ```
-# Example: training your own model on NTU RGB+D 120 cross subject
-python main.py --config config/ntu120-xsub/joint.yaml --model model.your_model.Model --work-dir work_dir/ntu120/xsub/your_model --device 0
-```
-
-### Testing
-
-- To test the trained models saved in <work_dir>, run the following command:
-
-```
-python main.py --config <work_dir>/config.yaml --work-dir <work_dir> --phase test --save-score True --weights <work_dir>/xxx.pt --device 0
-```
-
 - To ensemble the results of different modalities, run 
 ```
 # Example: ensemble four modalities of LAGCN on NTU RGB+D 120 cross subject
