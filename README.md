@@ -32,7 +32,7 @@ Graph convolutional networks (GCNs) have been widely used and have achieved rema
 
 #### NW-UCLA
 
-1. Download dataset from CTR-GCN repo: [https://github.com/Uason-Chen/CTR-GCN](https://github.com/Uason-Chen/CTR-GCN)
+1. Download dataset from [here](https://www.dropbox.com/s/10pcm4pksjy6mkq/all_sqe.zip?dl=0)
 2. Move `all_sqe` to `./data/NW-UCLA`
 
 ### Data Processing
@@ -67,3 +67,41 @@ Put downloaded data into the following directory structure:
  python get_raw_denoised_data.py
  # Transform the skeleton to the center of the first frame and vertically align to the ground
  python seq_transformation.py
+
+# Training & Testing
+
+### Training
+
+- Change the config file depending on what you want.
+
+```
+# Example: training LAGCN on NTU RGB+D 120 cross subject with GPU 0
+python main.py --config configs/ntu120-xsub/joint.yaml --work-dir work_dir/ntu120/csub/lagcn_joint --device 0
+```
+
+- To train your own model, put model file `your_model.py` under `./model` and run:
+
+```
+# Example: training your own model on NTU RGB+D 120 cross subject
+python main.py --config config/ntu120-xsub/joint.yaml --model model.your_model.Model --work-dir work_dir/ntu120/xsub/your_model --device 0
+```
+
+### Testing
+
+- To test the trained models saved in <work_dir>, run the following command:
+
+```
+python main.py --config <work_dir>/config.yaml --work-dir <work_dir> --phase test --save-score True --weights <work_dir>/xxx.pt --device 0
+```
+
+- To ensemble the results of different modalities, run 
+```
+# Example: ensemble four modalities of LAGCN on NTU RGB+D 120 cross subject
+python ensemble.py --datasets ntu120/xsub --joint work_dir/ntu120/xsub/j.pkl --bone work_dir/ntu120/xsub/b.pkl --joint-motion work_dir/ntu120/xsub/jm.pkl --bone-motion work_dir/ntu120/xsub/bm.pkl
+# Ensemble six modalities of LAGCN on NTU RGB+D 120 cross subject
+python ensemble_6s.py --datasets ntu120/xsub --joint work_dir/ntu120/xsub/j.pkl --bone work_dir/ntu120/xsub/b.pkl --joint-motion work_dir/ntu120/xsub/jm.pkl --bone-motion work_dir/ntu120/xsub/bm.pkl --prompt work_dir/ntu120/xsub/p2.pkl --prompt2 work_dir/ntu120/xsub/p5.pkl
+```
+
+### Pretrained Models
+
+Pretrained weights and validation set inference results are provided in the [link](https://drive.google.com/file/d/1Yz86jwjj_EAeqf8-KVBPsM9lVQWz-mCM/view?usp=drive_link) and [link](https://drive.google.com/file/d/1fOfhQGV8N6kJvGAmD02Kyigs58Ytrie0/view?usp=drive_link) respectively.
