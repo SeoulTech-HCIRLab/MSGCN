@@ -9,7 +9,6 @@ Graph convolutional networks (GCNs) have been widely used and have achieved rema
 
 - Python >= 3.6
 - PyTorch >= 1.7.0
-- NVIDIA Apex
 - tqdm, tensorboardX, wandb
 
 ## Data Preparation
