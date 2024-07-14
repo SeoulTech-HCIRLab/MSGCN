@@ -73,13 +73,11 @@ Put downloaded data into the following directory structure:
 ### Training
 
 - Change the config file depending on what you want.
+- To train the model run:
 
-```
+``` 
 # Example: training MSGCN on NTU RGB+D 120 cross subject with GPU 0
 python main.py --config configs/ntu120-xsub/joint.yaml --work-dir work_dir/ntu120/csub/lagcn_joint --device 0
-```
-
-- To train your own model, put model file `your_model.py` under `./model` and run:
 
 ```
 - To ensemble the results of different modalities, run 
@@ -92,4 +90,4 @@ python ensemble_6s.py --datasets ntu120/xsub --joint work_dir/ntu120/xsub/j.pkl 
 
 ### Pretrained Models
 
-Pretrained weights and validation set inference results are provided in the [link](https://drive.google.com/file/d/1Yz86jwjj_EAeqf8-KVBPsM9lVQWz-mCM/view?usp=drive_link) and [link](https://drive.google.com/file/d/1fOfhQGV8N6kJvGAmD02Kyigs58Ytrie0/view?usp=drive_link) respectively.
+Pretrained weights are provided in the [link](https://drive.google.com/)
