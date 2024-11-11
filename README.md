@@ -75,8 +75,11 @@ Put downloaded data into the following directory structure:
 - To train the model run:
 
 ``` 
-# Example: training MSGCN on NTU RGB+D 120 cross subject with GPU 0
-python main.py --config configs/ntu120-xsub/joint.yaml --work-dir work_dir/ntu120/csub/lagcn_joint --device 0
+#### Examples: training MSGCN on NTU RGB+D 60 cross subject with GPU 0
+```
+python train_transformer.py --config ./configs/ntu60-xsub/joint.yaml --work-dir work_dir/ntu60/xsub/joint_CUDNN/runs --device 0
+```
+
 
 ```
 - To ensemble the results of different modalities, run 
