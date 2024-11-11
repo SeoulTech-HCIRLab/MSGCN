@@ -75,21 +75,24 @@ Put downloaded data into the following directory structure:
 - To train the model run:
 
 ``` 
-#### Examples: training MSGCN on NTU RGB+D 60 cross subject with GPU 0
+#### Training
+- To train MSGCN on NTU RGB+D 60 cross subject with GPU 0
 ```
 python train_transformer.py --config ./configs/ntu60-xsub/joint.yaml --work-dir work_dir/ntu60/xsub/joint_CUDNN/runs --device 0
 ```
-
+- To ensemble the results of different modalities, run the following command:
 
 ```
-- To ensemble the results of different modalities, run 
+python ensemble.py \
+   --dataset=ntu/xsub \
+   --position_ckpts \
+      <work_dir_1>/files/best_score.pkl \
+      <work_dir_2>/files/best_score.pkl \
+      ...
+   --motion_ckpts \
+      <work_dir_3>/files/best_score.pkl \
+      <work_dir_4>/files/best_score.pkl \
+      ...
 ```
-# Example: ensemble four modalities of LAGCN on NTU RGB+D 120 cross subject
-python ensemble.py --datasets ntu120/xsub --joint work_dir/ntu120/xsub/j.pkl --bone work_dir/ntu120/xsub/b.pkl --joint-motion work_dir/ntu120/xsub/jm.pkl --bone-motion work_dir/ntu120/xsub/bm.pkl
-# Ensemble six modalities of LAGCN on NTU RGB+D 120 cross subject
-python ensemble_6s.py --datasets ntu120/xsub --joint work_dir/ntu120/xsub/j.pkl --bone work_dir/ntu120/xsub/b.pkl --joint-motion work_dir/ntu120/xsub/jm.pkl --bone-motion work_dir/ntu120/xsub/bm.pkl --prompt work_dir/ntu120/xsub/p2.pkl --prompt2 work_dir/ntu120/xsub/p5.pkl
-```
-
-### Pretrained Models
 
 Pretrained weights are provided in the [link](https://drive.google.com/)
