@@ -39,16 +39,16 @@ class unit_skip(nn.Module):
         x = self.bn(self.conv(x))
         return x
 
-class Ske_MixF(nn.Module):
+class MSGCN(nn.Module):
     def __init__(self, in_channels, out_channels, A, Frames, stride=1, residual=True):
-        super(Ske_MixF, self).__init__()
-        self.spa_mixf = MSCAM(in_channels, out_channels, A)
+        super(MSGCN, self).__init__()
+        self.mscam = MSCAM(in_channels, out_channels, A)
         self.dk = int(out_channels*0.25)
         self.dv = int(out_channels*0.25)
         self.Nh = 2
         self.Frames = Frames
         #self.tem_mixf = Temporal_MixFormer(out_channels, out_channels, Frames, kernel_size=5, stride=stride, dilations=[1,2],residual=False)
-        self.tem_mixf = MultiScale_TemporalConv(out_channels, out_channels, Frames, kernel_size=5, stride=stride, dilations1=[1,2], dilations2=[1,2], residual=False)
+        self.tmst = MultiScale_TemporalConv(out_channels, out_channels, Frames, kernel_size=5, stride=stride, dilations1=[1,2], dilations2=[1,2], residual=False)
         self.relu = nn.ReLU()
         if not residual:
             self.residual = lambda x: 0
@@ -58,12 +58,12 @@ class Ske_MixF(nn.Module):
             self.residual = unit_skip(in_channels, out_channels, kernel_size=1, stride=stride)
 
     def forward(self, x):
-        x = self.tem_mixf(self.spa_mixf(x)) + self.residual(x)
+        x = self.tmst(self.mscam(x)) + self.residual(x)
         return self.relu(x)
 
 
 class Model(nn.Module):
-    def __init__(self, num_class=60, num_point=25, num_person=2, graph=None, graph_args=dict(), in_channels=3):
+    def __init__(self, k, num_class=60, num_point=25, num_person=2, graph=None, graph_args=dict(), in_channels=3):
         super(Model, self).__init__()
         if graph is None:
             raise ValueError()
@@ -77,16 +77,16 @@ class Model(nn.Module):
         self.to_joint_embedding = nn.Linear(in_channels, 80)
         self.pos_embedding = nn.Parameter(torch.randn(1, self.num_point, 80))
         
-        self.l1 = Ske_MixF(80, 80, A, 64, residual=False)
-        self.l2 = Ske_MixF(80, 80, A, 64)
-        self.l3 = Ske_MixF(80, 80, A, 64)
-        self.l4 = Ske_MixF(80, 80, A, 64)
-        self.l5 = Ske_MixF(80, 160, A, 32, stride=2)
-        self.l6 = Ske_MixF(160, 160, A, 32)
-        self.l7 = Ske_MixF(160, 160, A, 32)
-        self.l8 = Ske_MixF(160, 320, A, 16, stride=2)
-        self.l9 = Ske_MixF(320, 320, A, 16)
-        self.l10= Ske_MixF(320, 320, A, 16)
+        self.l1 = MSGCN(80, 80, A, 64, residual=False)
+        self.l2 = MSGCN(80, 80, A, 64)
+        self.l3 = MSGCN(80, 80, A, 64)
+        self.l4 = MSGCN(80, 80, A, 64)
+        self.l5 = MSGCN(80, 160, A, 32, stride=2)
+        self.l6 = MSGCN(160, 160, A, 32)
+        self.l7 = MSGCN(160, 160, A, 32)
+        self.l8 = MSGCN(160, 320, A, 16, stride=2)
+        self.l9 = MSGCN(320, 320, A, 16)
+        self.l10= MSGCN(320, 320, A, 16)
 
         self.fc = nn.Linear(320, num_class)
         nn.init.normal_(self.fc.weight, 0, math.sqrt(2. / num_class))
