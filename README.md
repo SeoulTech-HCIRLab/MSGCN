@@ -1,5 +1,6 @@
 # MSA-GCN
-Official PyTorch implementation of "[MSA-GCN: Exploiting Multi-Scale Temporal Dynamics with Adaptive Graph Convolution for Skeleton-Based Action Recognition]
+Official PyTorch implementation of "MSA-GCN: Exploiting Multi-Scale Temporal Dynamics with Adaptive Graph Convolution for Skeleton-Based Action Recognition"
+## Architecture
 <img src="Images/MSA-GCN.png" width="600" />
 <img src="Images/Dynamic_topology.png" width="600" />
 ## Abstract
