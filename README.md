@@ -100,4 +100,4 @@ python ensemble.py \
       ...
 ```
 #### Checkpoints
-- Pretrained weights are provided in the [link](https://drive.google.com/drive/folders/1PcXVLzHfgY6qwIv5ukj92bCsiRtK1zp-?usp=sharing)
+- Pretrained weights are provided here: [link](https://drive.google.com/drive/folders/1PcXVLzHfgY6qwIv5ukj92bCsiRtK1zp-?usp=sharing)
