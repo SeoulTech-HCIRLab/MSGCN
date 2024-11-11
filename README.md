@@ -78,7 +78,9 @@ Put downloaded data into the following directory structure:
 - To train the model run:
 
 ``` 
-#### Training
+#### Usage
+Training for each of the datasets is done through the homonym .yaml configuration scripts in configs
+You can also use the argument parsers in train_transformer.py
 - To train MSGCN on NTU RGB+D 60 cross subject with GPU 0
 ```
 python train_transformer.py --config ./configs/ntu60-xsub/joint.yaml --work-dir work_dir/ntu60/xsub/joint_CUDNN/runs --device 0
@@ -97,5 +99,5 @@ python ensemble.py \
       <work_dir_4>/files/best_score.pkl \
       ...
 ```
-
-Pretrained weights are provided in the [link](https://drive.google.com/)
+#### Checkpoints
+- Pretrained weights are provided in the [link](https://drive.google.com/drive/folders/1PcXVLzHfgY6qwIv5ukj92bCsiRtK1zp-?usp=sharing)
