@@ -27,6 +27,7 @@ model_args:
   num_class: 10
   num_point: 20
   num_person: 1
+  k: 0
   graph: graph.ucla.Graph
   graph_args:
     labeling_mode: 'spatial'
